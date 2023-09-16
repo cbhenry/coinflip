@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Coin Flip</title>
+    <script src="js/cdn.jsdelivr.net_npm_jquery@3.7.1_dist_jquery.min.js"></script>
+    <!-- <script src="js/cdn.jsdelivr.net_npm_echarts@5.4.3_dist_echarts.js"></script> -->
+    <link href="css/main.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="bar">
+        <div class="front"><img src="image/front.png" /></div>
+        <div class="progress"></div>
+        <div class="back"><img src="image/back.png" /></div>
+    </div>
+    <div class="ctrpanel">
+        <input type="text" id="fliptimes" name="fname" placeholder="输入投掷次数"
+            oninput="value=value.replace(/[^\d]/g,'')" />
+        <input type="image" src="image/start.png" id="btnGo"></input>
+    </div>
+    <div class="result" id="flipResult">
+    </div>
+    <script type="text/javascript">
+        var sequence = [];
+        var interval = null;
+
+        function coinFlip() {
+            var coin = Math.random() < 0.5 ? 1 : 0;
+            sequence.push(coin);
+            if(coin == 1){
+                $("#flipResult").append('<img class="imgResult" src="image/front.png" />');
+            }
+            else{
+                $("#flipResult").append('<img class="imgResult" src="image/back.png" />');
+            }
+            var sum = sequence.reduce(function (a, b) {
+                return a + b;
+            }, 0);
+            return (sum / sequence.length) * 100;
+        }
+
+        clearInterval(interval);
+
+        $(document).ready(function () {
+            var interval = -1;
+
+            function stopFlip() {
+                if (interval > -1) {
+                    $('#btnGo').attr('src', "image/start.png");
+                    clearInterval(interval);
+                    interval = -1;
+                    sequence = [];
+                }
+            }
+
+            $('#btnGo').click(function () {
+                var times = $("#fliptimes").val();
+                if (interval < 0) {
+                    $('#btnGo').attr('src', "image/stop.png");
+                    interval = setInterval(function () {
+                        if (times <= sequence.length) {
+                            stopFlip();
+                        }
+                        else {
+                            if (sequence.length == 0){
+                                $("#flipResult").children().remove();
+                            }
+                            var elm = document.querySelector(".progress");
+                            var percentage = coinFlip() + "%";
+                            elm.style.width = elm.innerHTML = percentage;
+                            elm.setAttribute("steps", sequence.length + " 次投掷");
+                        }
+                    }, 20);
+                }
+                else {
+                    stopFlip();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

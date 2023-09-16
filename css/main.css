@@ -1,0 +1,86 @@
+.bar {
+    background-color: #ff4800;
+    height: 64px;
+    margin: 60px;
+    position: relative;
+    font-family: Helvetica, sans-serif;
+    border-radius: 50px;
+}
+.progress {
+    background-color: #4CAF50;
+    height: inherit;
+    color: white;
+    text-indent: 80px;
+    line-height: 30px;
+    position: inherit;
+    border-radius: inherit;
+}
+.bar:after,
+.progress:before,
+.progress:after {
+    content: "背面";
+    position: absolute;
+    right: 0;
+    bottom: -25px;
+    line-height: initial;
+    text-indent: initial;
+    color: grey;
+    font-size: 12px;
+}
+.progress:before {
+    content: attr(steps);
+    left: 0;
+}
+.progress:after {
+    content: "正面";
+}
+img{
+    width: 64px;
+    height: 64px;
+}
+.bar .front{
+    left: 0;
+    position: absolute;
+    z-index: 999;
+}
+.bar .back{
+    top:0;
+    right: 0;
+    position: absolute;
+    z-index: 999;
+}
+.ctrpanel{
+    margin: 60px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ctrpanel input[type=text] {
+    width: 200px;
+    padding: 12px 20px;
+    border: 4px solid rgb(235, 146, 44);
+    border-radius: 10px;
+    outline: none;
+    font-size: 20px;
+}
+
+.ctrpanel input[type=image] {
+    width: 48px;
+    height: 48px;
+    margin-left: 10px;
+}
+
+.result{
+    margin: 60px;
+    padding: 10px;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+}
+
+.result .imgResult{
+    width: 32px;
+    height: 32px;
+    display: flex;
+}
